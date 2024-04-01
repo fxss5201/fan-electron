@@ -1,11 +1,11 @@
-import type { UserInfoType } from './userInfo'
+import type { UserInfoType, UserInfoNoAccessType } from './userInfo'
 
 export interface WatermarkFun {
   (userInfo: UserInfoType): string[];
 }
 
 export interface WatermarkObject {
-  user: (keyof UserInfoType)[]
+  user: (keyof UserInfoNoAccessType)[]
 }
 
 export interface WatermarkType {

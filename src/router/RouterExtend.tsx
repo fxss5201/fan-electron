@@ -33,7 +33,7 @@ const RouterExtend: React.FC<{children: React.ReactNode}> = ({children}) => {
 		if (getType(config.watermark) === 'array') {
 			result = config.watermark as string[]
 		} else if (getType(config.watermark) === 'object') {
-			result = (config.watermark as WatermarkObject).user.map(key => userInfoStore[key] as string)
+			result = (config.watermark as WatermarkObject).user.map(key => userInfoStore[key])
 		} else if (getType(config.watermark) === 'function') {
 			result = (config.watermark as WatermarkFun)(userInfoStore)
 		}
@@ -45,7 +45,7 @@ const RouterExtend: React.FC<{children: React.ReactNode}> = ({children}) => {
 		if (getType(route.watermark) === 'array') {
 			watermarkContent = route.watermark as string[]
 		} else if (getType(route.watermark) === 'object') {
-			watermarkContent = (route.watermark as WatermarkObject).user.map(key => userInfoStore[key] as string);
+			watermarkContent = (route.watermark as WatermarkObject).user.map(key => userInfoStore[key]);
 		} else if (getType(route.watermark) === 'boolean') {
 			watermarkContent = getConfigWatermark()
 		} else if (getType(route.watermark) === 'function') {
