@@ -6,6 +6,7 @@ const enGb = {
   'Back Home': 'Back Home',
   'Loading': 'Loading ...',
 
+  'changeLanguage': 'change language',
 }
 
 export default enGb

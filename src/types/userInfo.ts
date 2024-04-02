@@ -1,8 +1,8 @@
-export interface UserInfoNoAccessType {
+export interface UserInfoCanWatermarkType {
   name: string;
-  header: string;
 }
 
-export interface UserInfoType extends UserInfoNoAccessType {
+export interface UserInfoType extends UserInfoCanWatermarkType {
+  header: string;
   access: string[];
 }

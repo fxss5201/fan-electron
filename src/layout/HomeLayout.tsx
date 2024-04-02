@@ -1,76 +1,111 @@
-import React, { useState } from 'react';
+import { Outlet, useNavigate, useLocation } from 'react-router-dom';
 import {
-  AppstoreOutlined,
-  ContainerOutlined,
-  DesktopOutlined,
-  MailOutlined,
-  MenuFoldOutlined,
-  MenuUnfoldOutlined,
-  PieChartOutlined,
-} from '@ant-design/icons';
-import type { MenuProps } from 'antd';
-import { Button, Menu } from 'antd';
+  GithubFilled,
+  // LogoutOutlined,
+  SettingFilled
+} from '@ant-design/icons'
+import { PageContainer, ProLayout } from '@ant-design/pro-components'
+import { Suspense, useState } from 'react'
+import { routers } from '@/router/index'
+// import { Dropdown } from 'antd'
+import { Spin, Tooltip } from "antd"
+import { homepage } from './../../package.json'
+import config from '@/config/index'
+import { useTranslation } from 'react-i18next';
 
-type MenuItem = Required<MenuProps>['items'][number];
+const HomeLayout = () => {
+  const { t } = useTranslation()
+  const navigate = useNavigate()
+  const location = useLocation()
+  const { pathname } = location
 
-function getItem(
-  label: React.ReactNode,
-  key: React.Key,
-  icon?: React.ReactNode,
-  children?: MenuItem[],
-  type?: 'group',
-): MenuItem {
-  return {
-    key,
-    icon,
-    children,
-    label,
-    type,
-  } as MenuItem;
-}
+  const [collapsed, setCollapsed] = useState(false)
 
-const items: MenuItem[] = [
-  getItem('Option 1', '1', <PieChartOutlined />),
-  getItem('Option 2', '2', <DesktopOutlined />),
-  getItem('Option 3', '3', <ContainerOutlined />),
+  const onCollapseFn = (val: boolean) => {
+    setCollapsed(val)
+  }
 
-  getItem('Navigation One', 'sub1', <MailOutlined />, [
-    getItem('Option 5', '5'),
-    getItem('Option 6', '6'),
-    getItem('Option 7', '7'),
-    getItem('Option 8', '8'),
-  ]),
+  const settingClickFn = () => {
+    navigate('/setting')
+  }
 
-  getItem('Navigation Two', 'sub2', <AppstoreOutlined />, [
-    getItem('Option 9', '9'),
-    getItem('Option 10', '10'),
-
-    getItem('Submenu', 'sub3', null, [getItem('Option 11', '11'), getItem('Option 12', '12')]),
-  ]),
-];
-
-const App: React.FC = () => {
-  const [collapsed, setCollapsed] = useState(false);
-
-  const toggleCollapsed = () => {
-    setCollapsed(!collapsed);
-  };
+  const githubClickFn = () => {
+    window.ipcRenderer.send('open-url', homepage)
+  }
 
   return (
-    <div style={{ width: 256 }}>
-      <Button type="primary" onClick={toggleCollapsed} style={{ marginBottom: 16 }}>
-        {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-      </Button>
-      <Menu
-        defaultSelectedKeys={['1']}
-        defaultOpenKeys={['sub1']}
-        mode="inline"
-        theme="dark"
-        inlineCollapsed={collapsed}
-        items={items}
-      />
+    <div
+      id="test-pro-layout"
+      style={{
+        height: '100vh',
+      }}
+    >
+      <ProLayout
+        className="min-h-screen"
+        title={config.title}
+        logo={config.logo}
+        siderWidth={216}
+        route={routers}
+        fixSiderbar={true}
+        collapsed={collapsed}
+        location={{
+          pathname,
+        }}
+        onCollapse={onCollapseFn}
+        actionsRender={() => {
+          return [
+            <Tooltip title="设置" placement={collapsed ? 'right' : 'top'}>
+              <SettingFilled key="SettingFilled" onClick={settingClickFn} />
+            </Tooltip>,
+            <Tooltip title="Github" placement={collapsed ? 'right' : 'top'}>
+              <GithubFilled key="GithubFilled" onClick={githubClickFn} />
+            </Tooltip>,
+          ];
+        }}
+        menuItemRender={(item, dom) => (
+          <div
+            onClick={() => {
+              navigate(item.path || '/');
+            }}
+          >
+            {dom}
+          </div>
+        )}
+        // avatarProps={{
+        //   src: 'https://gw.alipayobjects.com/zos/antfincdn/efFD%24IOql2/weixintupian_20170331104822.jpg',
+        //   title: '七妮妮',
+        //   size: 'small',
+        //   render: (props, dom) => {
+        //     return (
+        //       <Dropdown
+        //         menu={{
+        //           items: [
+        //             {
+        //               key: 'logout',
+        //               icon: <LogoutOutlined />,
+        //               label: '退出登录',
+        //             },
+        //           ],
+        //         }}
+        //       >
+        //         {dom}
+        //       </Dropdown>
+        //     );
+        //   },
+        // }}
+      >
+        <PageContainer>
+          <Suspense fallback={
+            <Spin tip={t('Loading')} size="large">
+              <div className='w-full h-80'></div>
+            </Spin>
+          }>
+            <Outlet />
+          </Suspense>
+        </PageContainer>
+      </ProLayout>
     </div>
   );
 };
 
-export default App;
+export default HomeLayout

@@ -1,11 +1,11 @@
-import type { UserInfoType, UserInfoNoAccessType } from './userInfo'
+import type { UserInfoType, UserInfoCanWatermarkType } from './userInfo'
 
 export interface WatermarkFun {
   (userInfo: UserInfoType): string[];
 }
 
 export interface WatermarkObject {
-  user: (keyof UserInfoNoAccessType)[]
+  user: (keyof UserInfoCanWatermarkType)[]
 }
 
 export interface WatermarkType {
@@ -13,6 +13,9 @@ export interface WatermarkType {
 }
 
 export interface Config extends WatermarkType {
+  title: string;
+  logo: string;
+
   locale: string;
   isShowToggleLang: boolean;
   noAccessPath: string;

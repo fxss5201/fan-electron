@@ -1,6 +1,10 @@
 import type { Config } from '@/types/config'
+import logo from '@/assets/logo.png'
 
 const config: Config = {
+  title: '泛应用',
+  logo: logo,
+
   locale: 'zhCN', // 设置默认语言，可选值 zhCN/enGb
   isShowToggleLang: true,
   watermark: ['aaa'],

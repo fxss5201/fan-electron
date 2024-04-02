@@ -5,6 +5,8 @@ const zhCN = {
   '500subTitle': '抱歉，出了问题。',
   'Back Home': '返回首页',
   'Loading': '加载中 ...',
+
+  'changeLanguage': '选择语言',
 }
 
 export default zhCN

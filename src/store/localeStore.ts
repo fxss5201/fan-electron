@@ -2,13 +2,13 @@ import { createSlice } from '@reduxjs/toolkit'
 import i18n from '@/i18n';
 import { getBrowserLang } from "@/utils/index";
 import config from '@/config/index';
+import { PayloadAction } from '@reduxjs/toolkit/react';
 
 const defaultBrowserLang = getBrowserLang();
 
 // 设置过本地的则使用本地的
 let localeStorage = window.localStorage.getItem('locale') || '';
 if (localeStorage) {
-  localeStorage = JSON.parse(localeStorage)
   if (localeStorage !== config.locale) {
     i18n.changeLanguage(localeStorage)
   }
@@ -26,12 +26,16 @@ export const localeStoreSlice = createSlice({
   name: 'localeStore',
   initialState: {
     value: localeStorage,
-    list: ['zhCN', 'enGb']
+    list: [
+      { value: 'zhCN', label: '中文' },
+      { value: 'enGb', label: 'English' },
+    ]
   },
   reducers: {
-    changeLocale: (state, action) => {
+    changeLocale: (state, action: PayloadAction<string>) => {
       i18n.changeLanguage(action.payload)
       state.value = action.payload
+      window.localStorage.setItem('locale', action.payload)
     },
   },
 });

@@ -27,3 +27,8 @@ body {
     background-color: #ffffff;
   }
 }
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+}

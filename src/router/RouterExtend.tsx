@@ -1,29 +1,18 @@
 import React from 'react';
 import { useLocation, Navigate } from 'react-router-dom';
 import { useAppSelector } from '@/hooks/storeHooks';
-import { getType, getFinalValue } from '@/utils/index';
+import { getType } from '@/utils/index';
 import { searchRoute } from '@/utils/router';
 import { routerList } from './index';
-import { useTitle } from 'ahooks';
-import { useTranslation } from 'react-i18next';
 import { Watermark } from 'antd';
 import config from '@/config/index';
 import { WatermarkFun, WatermarkObject } from '@/types/config';
 
 const RouterExtend: React.FC<{children: React.ReactNode}> = ({children}) => {
-  const { t } = useTranslation();
 	const location = useLocation();
   const route = searchRoute(location.pathname, routerList[0].children);
 	
 	const userInfoStore = useAppSelector(state => state.userInfoStore.value);
-
-  let curRoute = route
-  if (route.children && route.children[0]?.index) {
-    curRoute = route.children[0]
-  }
-  
-	// 此处利用多语言 t('aaa') 是否等于 'aaa' 来判断是否使用多语言
-  useTitle(getFinalValue(t, curRoute.meta?.title || ''))
 
 	if (route.redirect) return <Navigate to={route.redirect} replace />;
 
