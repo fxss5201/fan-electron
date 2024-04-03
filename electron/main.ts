@@ -1,6 +1,6 @@
-import { app, BrowserWindow } from 'electron'
+import { app, BrowserWindow, ipcMain, IpcMainEvent, Menu } from 'electron'
 import path from 'node:path'
-import './ipcMainEvent.ts'
+import handleOpenUrl from './handles/openUrl'
 
 // The built directory structure
 //
@@ -13,6 +13,7 @@ import './ipcMainEvent.ts'
 // │
 process.env.DIST = path.join(__dirname, '../dist')
 process.env.VITE_PUBLIC = app.isPackaged ? process.env.DIST : path.join(process.env.DIST, '../public')
+const isDev = process.env.NODE_ENV === 'development'
 
 let win: BrowserWindow | null
 // 🚧 Use ['ENV_NAME'] avoid vite:define plugin - Vite@2.x
@@ -20,11 +21,19 @@ const VITE_DEV_SERVER_URL = process.env['VITE_DEV_SERVER_URL']
 
 function createWindow() {
   win = new BrowserWindow({
+    // mac标题栏
+    titleBarStyle: 'hiddenInset',
+    // 隐藏标题栏
+    frame: isDev,
     icon: path.join(process.env.VITE_PUBLIC, 'electron-vite.svg'),
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
     },
   })
+
+  if (!isDev) {
+    Menu.setApplicationMenu(null)
+  }
 
   // Test active push message to Renderer-process.
   win.webContents.on('did-finish-load', () => {
@@ -60,4 +69,10 @@ app.on('activate', () => {
   }
 })
 
-app.whenReady().then(createWindow)
+app.whenReady().then(() => {
+  ipcMain.on('open-url', (event: IpcMainEvent, url: string) => {
+    console.log(event)
+    handleOpenUrl(url)
+  })
+  createWindow()
+})

@@ -13,7 +13,6 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
     </Provider>
   </React.StrictMode>,
 )
-console.log(window.versions.node())
 
 // Use contextBridge
 window.ipcRenderer.on('main-process-message', (_event, message) => {
