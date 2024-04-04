@@ -23,8 +23,6 @@ function createWindow() {
   win = new BrowserWindow({
     // mac标题栏
     titleBarStyle: 'hiddenInset',
-    // 隐藏标题栏
-    frame: isDev,
     icon: path.join(process.env.VITE_PUBLIC, 'electron-vite.svg'),
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),

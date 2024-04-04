@@ -4,6 +4,7 @@ import type { FanRouteObject } from '@/types/router'
 
 const AllLayout = lazy(() => import('@/layout/AllLayout'))
 const HomeLayout = lazy(() => import('@/layout/HomeLayout'))
+const OutletPage = lazy(() => import('@/pages/OutletPage'))
 
 const ErrorPage = lazy(() => import('@/error-page'))
 const HomePage = lazy(() => import('@/pages/HomePage'))
@@ -11,13 +12,21 @@ const SettingPage = lazy(() => import('@/pages/SettingPage'))
 
 export const routers: FanRouteObject = {
   path: '/',
-  redirect: '/home',
+  redirect: '/home/home',
   Component: HomeLayout,
   children: [
     {
       path: '/home',
+      redirect: '/home/home',
       name: '首页',
-      Component: HomePage,
+      Component: OutletPage,
+      children: [
+        {
+          path: '/home/home',
+          name: '首页',
+          Component: HomePage,
+        }
+      ],
     },
     {
       path: '/setting',

@@ -1,4 +1,4 @@
-const zhCN = {
+export default {
   'Welcome to React': '欢迎来到React',
   '404subTitle': '抱歉，您访问的页面不存在。',
   '403subTitle': '抱歉，您无权访问此页面。',
@@ -7,6 +7,7 @@ const zhCN = {
   'Loading': '加载中 ...',
 
   'changeLanguage': '选择语言',
+  
+  // 菜单
+  'menu.Home': '首页'
 }
-
-export default zhCN

@@ -1,7 +1,6 @@
 import { Form, Select } from 'antd'
-import { useAppDispatch, useAppSelector } from "@/hooks/storeHooks"
 import { useTranslation } from 'react-i18next'
-import { changeLocale } from '@/store/localeStore';
+import useLocalStore from '@/hooks/localStore'
 
 type FieldType = {
   local?: string;
@@ -9,16 +8,10 @@ type FieldType = {
 
 function SettingPage () {
   const { t } = useTranslation()
-  const localeDefault = useAppSelector(state => state.localeStore.value)
-  const localeList = useAppSelector(state => state.localeStore.list)
-  const dispatch = useAppDispatch()
-
-  const handleLocalChange = (val: string) => {
-    dispatch(changeLocale(val))
-  }
+  const { locale: localeDefault, localeList, localChange: handleLocalChange } = useLocalStore()
 
   return (
-    <div className="bg-white">
+    <div>
       <Form
         name="basic"
         labelCol={{ span: 4 }}

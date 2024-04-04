@@ -18,21 +18,23 @@ if (localeStorage) {
     localeStorage = defaultBrowserLang
     i18n.changeLanguage(localeStorage)
   } else {
-    localeStorage = config.locale || 'zhCN'
+    localeStorage = config.locale || 'zh-CN'
   }
 }
+
+type localeType = "zh-CN" | "en-US"
 
 export const localeStoreSlice = createSlice({
   name: 'localeStore',
   initialState: {
-    value: localeStorage,
+    value: localeStorage as localeType,
     list: [
-      { value: 'zhCN', label: '中文' },
-      { value: 'enGb', label: 'English' },
+      { value: 'zh-CN', label: '中文' },
+      { value: 'en-US', label: 'English' },
     ]
   },
   reducers: {
-    changeLocale: (state, action: PayloadAction<string>) => {
+    changeLocale: (state, action: PayloadAction<localeType>) => {
       i18n.changeLanguage(action.payload)
       state.value = action.payload
       window.localStorage.setItem('locale', action.payload)

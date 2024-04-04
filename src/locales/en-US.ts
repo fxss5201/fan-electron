@@ -1,4 +1,4 @@
-const enGb = {
+export default {
   'Welcome to React': 'Welcome to React and react-i18next',
   '404subTitle': 'Sorry, the page you visited does not exist.',
   '403subTitle': 'Sorry, you are not authorized to access this page.',
@@ -7,6 +7,7 @@ const enGb = {
   'Loading': 'Loading ...',
 
   'changeLanguage': 'change language',
-}
 
-export default enGb
+  // 菜单
+  'menu.Home': 'Home'
+}

@@ -2,7 +2,7 @@ import { Outlet, useNavigate, useLocation } from 'react-router-dom';
 import {
   GithubFilled,
   // LogoutOutlined,
-  SettingFilled
+  SettingFilled,
 } from '@ant-design/icons'
 import { PageContainer, ProLayout } from '@ant-design/pro-components'
 import { Suspense, useState } from 'react'
@@ -11,15 +11,24 @@ import { routers } from '@/router/index'
 import { Spin, Tooltip } from "antd"
 import { homepage } from './../../package.json'
 import config from '@/config/index'
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next'
+import useLocalStore from '@/hooks/localStore'
+import type { ProSettings } from '@ant-design/pro-components'
 
 const HomeLayout = () => {
   const { t } = useTranslation()
   const navigate = useNavigate()
   const location = useLocation()
   const { pathname } = location
+  const { locale } = useLocalStore()
 
   const [collapsed, setCollapsed] = useState(false)
+
+  const settings: ProSettings | undefined = {
+    fixSiderbar: true,
+    layout: 'mix',
+    splitMenus: true,
+  }
 
   const onCollapseFn = (val: boolean) => {
     setCollapsed(val)
@@ -35,31 +44,33 @@ const HomeLayout = () => {
 
   return (
     <div
-      id="test-pro-layout"
       style={{
         height: '100vh',
       }}
     >
       <ProLayout
         className="min-h-screen"
+        locale={locale}
         title={config.title}
         logo={config.logo}
         siderWidth={216}
         route={routers}
         fixSiderbar={true}
         collapsed={collapsed}
+        {...settings}
         location={{
           pathname,
         }}
         onCollapse={onCollapseFn}
         actionsRender={() => {
           return [
-            <Tooltip title="设置" placement={collapsed ? 'right' : 'top'}>
+            <Tooltip title="设置" placement='bottom'>
               <SettingFilled key="SettingFilled" onClick={settingClickFn} />
             </Tooltip>,
-            <Tooltip title="Github" placement={collapsed ? 'right' : 'top'}>
+            <Tooltip title="Github" placement='bottom'>
               <GithubFilled key="GithubFilled" onClick={githubClickFn} />
             </Tooltip>,
+            <div className="w-4"></div>
           ];
         }}
         menuItemRender={(item, dom) => (
@@ -71,28 +82,6 @@ const HomeLayout = () => {
             {dom}
           </div>
         )}
-        // avatarProps={{
-        //   src: 'https://gw.alipayobjects.com/zos/antfincdn/efFD%24IOql2/weixintupian_20170331104822.jpg',
-        //   title: '七妮妮',
-        //   size: 'small',
-        //   render: (props, dom) => {
-        //     return (
-        //       <Dropdown
-        //         menu={{
-        //           items: [
-        //             {
-        //               key: 'logout',
-        //               icon: <LogoutOutlined />,
-        //               label: '退出登录',
-        //             },
-        //           ],
-        //         }}
-        //       >
-        //         {dom}
-        //       </Dropdown>
-        //     );
-        //   },
-        // }}
       >
         <PageContainer>
           <Suspense fallback={

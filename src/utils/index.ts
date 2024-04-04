@@ -6,7 +6,7 @@ import { TFunction } from "i18next";
  */
 export const getBrowserLang = () => {
 	const browserLang = navigator.language
-	return ['zh-cn', 'cn', 'zh'].includes(browserLang.toLowerCase()) ? 'zhCN' : 'enGb'
+	return ['zh-cn', 'cn', 'zh'].includes(browserLang.toLowerCase()) ? 'zh-CN' : 'en-US'
 }
 
 /**
