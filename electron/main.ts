@@ -1,6 +1,7 @@
-import { app, BrowserWindow, ipcMain, IpcMainEvent, Menu } from 'electron'
+import { app, BrowserWindow, ipcMain, IpcMainEvent, Menu, IpcMainInvokeEvent, OpenDialogOptions } from 'electron'
 import path from 'node:path'
-import handleOpenUrl from './handles/openUrl'
+import handleOpenUrl from './handles/handleOpenUrl'
+import handleFileOpen from './handles/handleFileOpen'
 
 // The built directory structure
 //
@@ -72,5 +73,11 @@ app.whenReady().then(() => {
     console.log(event)
     handleOpenUrl(url)
   })
+
+  ipcMain.handle('dialog:openFile', (event: IpcMainInvokeEvent, options: OpenDialogOptions) => {
+    console.log(event)
+    return handleFileOpen(options)
+  })
+
   createWindow()
 })

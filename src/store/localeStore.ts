@@ -3,6 +3,7 @@ import i18n from '@/i18n';
 import { getBrowserLang } from "@/utils/index";
 import config from '@/config/index';
 import { PayloadAction } from '@reduxjs/toolkit/react';
+import { localeType } from '@/types';
 
 const defaultBrowserLang = getBrowserLang();
 
@@ -21,8 +22,6 @@ if (localeStorage) {
     localeStorage = config.locale || 'zh-CN'
   }
 }
-
-type localeType = "zh-CN" | "en-US"
 
 export const localeStoreSlice = createSlice({
   name: 'localeStore',

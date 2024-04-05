@@ -14,6 +14,7 @@ import config from '@/config/index'
 import { useTranslation } from 'react-i18next'
 import useLocalStore from '@/hooks/localStore'
 import type { ProSettings } from '@ant-design/pro-components'
+import handleOpenUrl from '@/handles/handleOpenUrl'
 
 const HomeLayout = () => {
   const { t } = useTranslation()
@@ -39,7 +40,7 @@ const HomeLayout = () => {
   }
 
   const githubClickFn = () => {
-    window.ipcRenderer.send('open-url', homepage)
+    handleOpenUrl(homepage)
   }
 
   return (

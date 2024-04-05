@@ -9,6 +9,7 @@ const OutletPage = lazy(() => import('@/pages/OutletPage'))
 const ErrorPage = lazy(() => import('@/error-page'))
 const HomePage = lazy(() => import('@/pages/HomePage'))
 const SettingPage = lazy(() => import('@/pages/SettingPage'))
+const DialogOpenFilePage = lazy(() => import('@/pages/DialogOpenFilePage'))
 
 export const routers: FanRouteObject = {
   path: '/',
@@ -25,6 +26,19 @@ export const routers: FanRouteObject = {
           path: '/home/home',
           name: '首页',
           Component: HomePage,
+        }
+      ],
+    },
+    {
+      path: '/api',
+      redirect: '/api/dialogOpenFile',
+      name: 'API',
+      Component: OutletPage,
+      children: [
+        {
+          path: '/api/dialogOpenFile',
+          name: '弹窗选择文件',
+          Component: DialogOpenFilePage,
         }
       ],
     },
