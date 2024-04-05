@@ -1,6 +1,6 @@
 import { useRouteError, isRouteErrorResponse, useNavigate } from 'react-router-dom'
 import { Button, Result } from 'antd'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from '@/hooks/useTranslation'
 import { ResultStatusType } from 'antd/es/result';
 
 function ErrorPage() {

@@ -1,5 +1,5 @@
 import { Form, Select } from 'antd'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from '@/hooks/useTranslation'
 import useLocalStore from '@/hooks/localStore'
 
 type FieldType = {

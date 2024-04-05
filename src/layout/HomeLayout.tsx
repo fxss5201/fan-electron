@@ -11,7 +11,7 @@ import { routers } from '@/router/index'
 import { Spin, Tooltip } from "antd"
 import { homepage } from './../../package.json'
 import config from '@/config/index'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from '@/hooks/useTranslation'
 import useLocalStore from '@/hooks/localStore'
 import type { ProSettings } from '@ant-design/pro-components'
 import handleOpenUrl from '@/handles/handleOpenUrl'

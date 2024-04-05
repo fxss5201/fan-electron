@@ -1,7 +1,7 @@
 import { Suspense } from 'react'
 import { RouterProvider } from 'react-router-dom'
 import { Spin, FloatButton } from 'antd'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from '@/hooks/useTranslation'
 import router from '@/router/index'
 import { ConfigProvider } from 'antd'
 import dayjs from 'dayjs'
