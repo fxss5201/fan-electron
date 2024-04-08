@@ -21,7 +21,8 @@
     "build": "tsc && vite build && electron-builder",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "commit": "git-cz"
+    "commit": "git-cz",
+    "release": "electron-builder --win -p always"
   },
   "dependencies": {
     "@ant-design/icons": "^5.3.6",
@@ -30,6 +31,7 @@
     "ahooks": "^3.7.11",
     "antd": "^5.15.4",
     "dayjs": "^1.11.10",
+    "electron-updater": "^6.1.8",
     "i18next": "^23.10.1",
     "react": "^18.2.0",
     "react-activation": "^0.12.4",
@@ -62,6 +64,15 @@
   "config": {
     "commitizen": {
       "path": "node_modules/cz-git"
+    }
+  },
+  "build": {
+    "appId": "com.github.iffy.electronupdaterexample",
+    "win": {
+      "target": "nsis"
+    },
+    "nsis": {
+      "oneClick": false
     }
   }
 }

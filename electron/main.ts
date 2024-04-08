@@ -1,5 +1,6 @@
 import { app, BrowserWindow, ipcMain, IpcMainEvent, Menu, IpcMainInvokeEvent, OpenDialogOptions } from 'electron'
 import path from 'node:path'
+import { autoUpdater } from 'electron-updater'
 import handleOpenUrl from './handles/handleOpenUrl'
 import handleFileOpen from './handles/handleFileOpen'
 
@@ -20,6 +21,11 @@ let win: BrowserWindow | null
 // 🚧 Use ['ENV_NAME'] avoid vite:define plugin - Vite@2.x
 const VITE_DEV_SERVER_URL = process.env['VITE_DEV_SERVER_URL']
 
+
+function sendStatusToWindow(text: string) {
+  (win as BrowserWindow).webContents.send('message', text);
+}
+
 function createWindow() {
   win = new BrowserWindow({
     // mac标题栏
@@ -29,6 +35,7 @@ function createWindow() {
       preload: path.join(__dirname, 'preload.js'),
     },
   })
+  win.webContents.openDevTools();
 
   if (!isDev) {
     Menu.setApplicationMenu(null)
@@ -49,6 +56,35 @@ function createWindow() {
     win.loadFile(path.join(process.env.DIST, 'index.html'))
   }
 }
+
+autoUpdater.on('checking-for-update', () => {
+  sendStatusToWindow('Checking for update...');
+})
+autoUpdater.on('update-available', (info) => {
+  console.log(info)
+  sendStatusToWindow('Update available.');
+})
+autoUpdater.on('update-not-available', (info) => {
+  console.log(info)
+  sendStatusToWindow('Update not available.');
+})
+autoUpdater.on('error', (err) => {
+  sendStatusToWindow('Error in auto-updater. ' + err);
+})
+autoUpdater.on('download-progress', (progressObj) => {
+  let log_message = "Download speed: " + progressObj.bytesPerSecond;
+  log_message = log_message + ' - Downloaded ' + progressObj.percent + '%';
+  log_message = log_message + ' (' + progressObj.transferred + "/" + progressObj.total + ')';
+  sendStatusToWindow(log_message);
+})
+autoUpdater.on('update-downloaded', (info) => {
+  console.log(info)
+  sendStatusToWindow('Update downloaded');
+});
+
+app.on('ready', function()  {
+  autoUpdater.checkForUpdatesAndNotify();
+});
 
 // Quit when all windows are closed, except on macOS. There, it's common
 // for applications and their menu bar to stay active until the user quits
