@@ -1,4 +1,4 @@
-import { app, BrowserWindow, ipcMain, IpcMainEvent, Menu, IpcMainInvokeEvent, OpenDialogOptions } from 'electron'
+import { app, BrowserWindow, ipcMain, IpcMainEvent, Menu, IpcMainInvokeEvent, OpenDialogOptions, dialog } from 'electron'
 import path from 'node:path'
 import { autoUpdater } from 'electron-updater'
 import handleOpenUrl from './handles/handleOpenUrl'
@@ -20,11 +20,6 @@ const isDev = process.env.NODE_ENV === 'development'
 let win: BrowserWindow | null
 // 🚧 Use ['ENV_NAME'] avoid vite:define plugin - Vite@2.x
 const VITE_DEV_SERVER_URL = process.env['VITE_DEV_SERVER_URL']
-
-
-function sendStatusToWindow(text: string) {
-  (win as BrowserWindow).webContents.send('message', text);
-}
 
 function createWindow() {
   win = new BrowserWindow({
@@ -57,33 +52,40 @@ function createWindow() {
   }
 }
 
-autoUpdater.on('checking-for-update', () => {
-  sendStatusToWindow('Checking for update...');
-})
-autoUpdater.on('update-available', (info) => {
-  console.log(info)
-  sendStatusToWindow('Update available.');
-})
-autoUpdater.on('update-not-available', (info) => {
-  console.log(info)
-  sendStatusToWindow('Update not available.');
-})
-autoUpdater.on('error', (err) => {
-  sendStatusToWindow('Error in auto-updater. ' + err);
-})
-autoUpdater.on('download-progress', (progressObj) => {
-  let log_message = "Download speed: " + progressObj.bytesPerSecond;
-  log_message = log_message + ' - Downloaded ' + progressObj.percent + '%';
-  log_message = log_message + ' (' + progressObj.transferred + "/" + progressObj.total + ')';
-  sendStatusToWindow(log_message);
-})
-autoUpdater.on('update-downloaded', (info) => {
-  console.log(info)
-  sendStatusToWindow('Update downloaded');
-});
+function checkUpdate(){
+  //检测更新
+  autoUpdater.checkForUpdates()
+  
+  //监听'error'事件
+  autoUpdater.on('error', (err) => {
+    console.log(err)
+  })
+  
+  //监听'update-available'事件，发现有新版本时触发
+  autoUpdater.on('update-available', () => {
+    console.log('found new version')
+  })
+  
+  //默认会自动下载新版本，如果不想自动下载，设置autoUpdater.autoDownload = false
+  
+  //监听'update-downloaded'事件，新版本下载完成时触发
+  autoUpdater.on('update-downloaded', () => {
+    dialog.showMessageBox({
+      type: 'info',
+      title: '应用更新',
+      message: '发现新版本，是否更新？',
+      buttons: ['是', '否']
+    }).then((buttonIndex) => {
+      if(buttonIndex.response == 0) {  //选择是，则退出程序，安装新版本
+        autoUpdater.quitAndInstall() 
+        app.quit()
+      }
+    })
+  })
+}
 
 app.on('ready', function()  {
-  autoUpdater.checkForUpdatesAndNotify();
+  checkUpdate()
 });
 
 // Quit when all windows are closed, except on macOS. There, it's common

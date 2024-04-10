@@ -22,7 +22,10 @@
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "commit": "git-cz",
-    "release": "electron-builder --win -p always"
+    "build-icon": "electron-icon-builder --input=./public/icon.png --output=dist-electron --flatten",
+    "build-mac": "tsc && vite build && electron-builder build --mac",
+    "build-win": "tsc && vite build && electron-builder build --win",
+    "build-linux": "tsc && vite build && electron-builder build --linux"
   },
   "dependencies": {
     "@ant-design/icons": "^5.3.6",
@@ -47,9 +50,11 @@
     "@typescript-eslint/parser": "^7.1.1",
     "@vitejs/plugin-react": "^4.2.1",
     "autoprefixer": "^10.4.19",
+    "cross-env": "^7.0.3",
     "cz-git": "^1.9.1",
     "electron": "^29.1.4",
     "electron-builder": "^24.13.3",
+    "electron-icon-builder": "^2.0.1",
     "eslint": "^8.57.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.5",
@@ -64,15 +69,6 @@
   "config": {
     "commitizen": {
       "path": "node_modules/cz-git"
-    }
-  },
-  "build": {
-    "appId": "com.github.iffy.electronupdaterexample",
-    "win": {
-      "target": "nsis"
-    },
-    "nsis": {
-      "oneClick": false
     }
   }
 }

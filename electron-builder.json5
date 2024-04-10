@@ -28,6 +28,7 @@
         ]
       }
     ],
+    "icon": "/dist-electron/icons/icon.ico",
     "artifactName": "${productName}-Windows-${version}-Setup.${ext}"
   },
   "nsis": {
