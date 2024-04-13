@@ -28,7 +28,6 @@ function DialogOpenFilePage () {
       setFilePathDirectory(filePaths[0])
     }
   }
-  console.log(11111)
   
   return (
     <>

@@ -1,4 +1,5 @@
 import { ipcRenderer, contextBridge } from 'electron'
+import { version } from './../package.json'
 
 // --------- Expose some API to the Renderer process ---------
 contextBridge.exposeInMainWorld('ipcRenderer', {
@@ -24,8 +25,9 @@ contextBridge.exposeInMainWorld('ipcRenderer', {
 })
 
 contextBridge.exposeInMainWorld('versions', {
-  node: () => process.versions.node,
-  chrome: () => process.versions.chrome,
-  electron: () => process.versions.electron
+  app: version,
+  node: process.versions.node,
+  chrome: process.versions.chrome,
+  electron: process.versions.electron
   // 除函数之外，我们也可以暴露变量
 })

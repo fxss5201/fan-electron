@@ -20,11 +20,13 @@ export const routers: FanRouteObject = {
       path: '/home',
       redirect: '/home/home',
       name: '首页',
+      locale: 'menu.Home',
       Component: OutletPage,
       children: [
         {
           path: '/home/home',
           name: '首页',
+          locale: 'menu.Home',
           Component: HomePage,
         }
       ],
@@ -33,16 +35,13 @@ export const routers: FanRouteObject = {
       path: '/api',
       redirect: '/api/dialog',
       name: 'API',
+      locale: false,
       Component: OutletPage,
       children: [
         {
           path: '/api/dialog',
           name: 'dialog',
-          Component: ApiDialog,
-        },
-        {
-          path: '/api/dialog1',
-          name: 'dialog1',
+          locale: 'menu.dialog',
           Component: ApiDialog,
         }
       ],
@@ -50,6 +49,7 @@ export const routers: FanRouteObject = {
     {
       path: '/setting',
       name: '设置',
+      locale: 'menu.setting',
       Component: SettingPage,
       hideInMenu: true,
     }

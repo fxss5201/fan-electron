@@ -11,17 +11,17 @@ import { routers } from '@/router/index'
 import { Spin, Tooltip } from "antd"
 import { homepage } from './../../package.json'
 import config from '@/config/index'
-import { useTranslation } from '@/hooks/useTranslation'
+import { FormattedMessage, useIntl } from 'react-intl'
 import useLocalStore from '@/hooks/localStore'
 import type { ProSettings } from '@ant-design/pro-components'
 import { openExternal } from '@/handles/shell'
 
 const HomeLayout = () => {
-  const { t } = useTranslation()
   const navigate = useNavigate()
   const location = useLocation()
   const { pathname } = location
   const { locale } = useLocalStore()
+  const intl = useIntl()
 
   const [collapsed, setCollapsed] = useState(false)
 
@@ -29,6 +29,7 @@ const HomeLayout = () => {
     fixSiderbar: true,
     layout: 'mix',
     splitMenus: true,
+    menu: { locale: true },
   }
 
   const onCollapseFn = (val: boolean) => {
@@ -52,6 +53,7 @@ const HomeLayout = () => {
       <ProLayout
         className="min-h-screen"
         locale={locale}
+        formatMessage={(message) => intl.formatMessage(message)}
         title={config.title}
         logo={config.logo}
         siderWidth={216}
@@ -65,7 +67,7 @@ const HomeLayout = () => {
         onCollapse={onCollapseFn}
         actionsRender={() => {
           return [
-            <Tooltip title="设置" placement='bottom'>
+            <Tooltip title={<FormattedMessage id="menu.setting"></FormattedMessage>} placement='bottom'>
               <SettingFilled key="SettingFilled" onClick={settingClickFn} />
             </Tooltip>,
             <Tooltip title="Github" placement='bottom'>
@@ -86,7 +88,7 @@ const HomeLayout = () => {
       >
         <PageContainer>
           <Suspense fallback={
-            <Spin tip={t('Loading')} size="large">
+            <Spin tip={<FormattedMessage id="Loading"></FormattedMessage>} size="large">
               <div className='w-full h-80'></div>
             </Spin>
           }>

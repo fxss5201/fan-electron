@@ -1,5 +1,5 @@
 import { Form, Select } from 'antd'
-import { useTranslation } from '@/hooks/useTranslation'
+import { FormattedMessage } from 'react-intl'
 import useLocalStore from '@/hooks/localStore'
 
 type FieldType = {
@@ -7,7 +7,6 @@ type FieldType = {
 };
 
 function SettingPage () {
-  const { t } = useTranslation()
   const { locale: localeDefault, localeList, localChange: handleLocalChange } = useLocalStore()
 
   return (
@@ -20,7 +19,7 @@ function SettingPage () {
         initialValues={{local: localeDefault}}
       >
         <Form.Item<FieldType>
-          label={t('changeLanguage')}
+          label={<FormattedMessage id='changeLanguage'></FormattedMessage>}
           name="local"
         >
           <Select options={localeList} onChange={handleLocalChange} />

@@ -1,5 +1,5 @@
-import { useTranslation as useTranslationFn } from 'react-i18next'
+import { useIntl } from 'react-intl'
 
 export const useTranslation = () => {
-  return useTranslationFn()
+  return useIntl()
 }

@@ -9,5 +9,7 @@ export default {
   'changeLanguage': '选择语言',
   
   // 菜单
-  'menu.Home': '首页'
+  'menu.Home': '首页',
+  'menu.dialog': 'dialog',
+  'menu.setting': '设置'
 }

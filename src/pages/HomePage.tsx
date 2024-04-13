@@ -1,10 +1,10 @@
-import { useTranslation } from '@/hooks/useTranslation'
+import { FormattedMessage } from 'react-intl'
 
 function HomePage () {
-  const { t } = useTranslation()
-  
   return (
-    <div>{t('Welcome to React')}</div>
+    <div>
+      <FormattedMessage id='Welcome to React'></FormattedMessage>
+    </div>
   )
 }
 

@@ -17,6 +17,5 @@ export interface Config extends WatermarkType {
   logo: string;
 
   locale: string;
-  isShowToggleLang: boolean;
   noAccessPath: string;
 }
