@@ -22,7 +22,7 @@
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "commit": "git-cz",
-    "build-icon": "electron-icon-builder --input=./public/icon.png --output=dist-electron --flatten",
+    "build-icon": "electron-icon-builder --input=./public/icon.png --output=build --flatten",
     "build-mac": "tsc && vite build && electron-builder build --mac",
     "build-win": "tsc && vite build && electron-builder build --win",
     "build-linux": "tsc && vite build && electron-builder build --linux"

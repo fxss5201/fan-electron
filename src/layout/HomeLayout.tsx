@@ -14,7 +14,7 @@ import config from '@/config/index'
 import { useTranslation } from '@/hooks/useTranslation'
 import useLocalStore from '@/hooks/localStore'
 import type { ProSettings } from '@ant-design/pro-components'
-import handleOpenUrl from '@/handles/handleOpenUrl'
+import { openExternal } from '@/handles/shell'
 
 const HomeLayout = () => {
   const { t } = useTranslation()
@@ -40,7 +40,7 @@ const HomeLayout = () => {
   }
 
   const githubClickFn = () => {
-    handleOpenUrl(homepage)
+    openExternal(homepage)
   }
 
   return (

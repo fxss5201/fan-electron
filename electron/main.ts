@@ -1,8 +1,9 @@
-import { app, BrowserWindow, ipcMain, IpcMainEvent, Menu, IpcMainInvokeEvent, OpenDialogOptions, dialog } from 'electron'
+import { app, BrowserWindow, Menu } from 'electron'
 import path from 'node:path'
-import { autoUpdater } from 'electron-updater'
-import handleOpenUrl from './handles/handleOpenUrl'
-import handleFileOpen from './handles/handleFileOpen'
+import checkUpdate from './autoUpdater'
+import addIpcMainOnFn from './ipcMain/on'
+import addIpcMainHandleFn from './ipcMain/handle'
+
 
 // The built directory structure
 //
@@ -30,7 +31,7 @@ function createWindow() {
       preload: path.join(__dirname, 'preload.js'),
     },
   })
-  win.webContents.openDevTools();
+  // win.webContents.openDevTools();
 
   if (!isDev) {
     Menu.setApplicationMenu(null)
@@ -50,38 +51,6 @@ function createWindow() {
     // win.loadFile('dist/index.html')
     win.loadFile(path.join(process.env.DIST, 'index.html'))
   }
-}
-
-function checkUpdate(){
-  //检测更新
-  autoUpdater.checkForUpdates()
-  
-  //监听'error'事件
-  autoUpdater.on('error', (err) => {
-    console.log(err)
-  })
-  
-  //监听'update-available'事件，发现有新版本时触发
-  autoUpdater.on('update-available', () => {
-    console.log('found new version')
-  })
-  
-  //默认会自动下载新版本，如果不想自动下载，设置autoUpdater.autoDownload = false
-  
-  //监听'update-downloaded'事件，新版本下载完成时触发
-  autoUpdater.on('update-downloaded', () => {
-    dialog.showMessageBox({
-      type: 'info',
-      title: '应用更新',
-      message: '发现新版本，是否更新？',
-      buttons: ['是', '否']
-    }).then((buttonIndex) => {
-      if(buttonIndex.response == 0) {  //选择是，则退出程序，安装新版本
-        autoUpdater.quitAndInstall() 
-        app.quit()
-      }
-    })
-  })
 }
 
 app.on('ready', function()  {
@@ -107,15 +76,7 @@ app.on('activate', () => {
 })
 
 app.whenReady().then(() => {
-  ipcMain.on('open-url', (event: IpcMainEvent, url: string) => {
-    console.log(event)
-    handleOpenUrl(url)
-  })
-
-  ipcMain.handle('dialog:openFile', (event: IpcMainInvokeEvent, options: OpenDialogOptions) => {
-    console.log(event)
-    return handleFileOpen(options)
-  })
-
+  addIpcMainOnFn()
+  addIpcMainHandleFn()
   createWindow()
 })
