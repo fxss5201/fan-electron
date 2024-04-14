@@ -1,6 +1,5 @@
 import { app, dialog, BrowserWindow } from 'electron'
 import { UpdateDownloadedEvent, UpdateInfo, autoUpdater } from 'electron-updater'
-import log from 'electron-log'
 
 function checkUpdate(win: BrowserWindow){
   //检测更新
@@ -20,7 +19,6 @@ function checkUpdate(win: BrowserWindow){
   
   //监听'update-downloaded'事件，新版本下载完成时触发
   autoUpdater.on('update-downloaded', (res: UpdateDownloadedEvent) => {
-    log.info(res)
     // 统一采用前端页面提示
     dialog.showMessageBox({
       type: 'info',

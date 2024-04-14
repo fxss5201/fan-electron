@@ -23,9 +23,6 @@ dependencies:
   dayjs:
     specifier: ^1.11.10
     version: 1.11.10
-  electron-log:
-    specifier: ^5.1.2
-    version: 5.1.2
   electron-updater:
     specifier: ^6.1.8
     version: 6.1.8
@@ -3332,11 +3329,6 @@ packages:
     transitivePeerDependencies:
       - supports-color
     dev: true
-
-  /electron-log@5.1.2:
-    resolution: {integrity: sha512-Cpg4hAZ27yM9wzE77c4TvgzxzavZ+dVltCczParXN+Vb3jocojCSAuSMCVOI9fhFuuOR+iuu3tZLX1cu0y0kgQ==}
-    engines: {node: '>= 14'}
-    dev: false
 
   /electron-publish@24.13.1:
     resolution: {integrity: sha512-2ZgdEqJ8e9D17Hwp5LEq5mLQPjqU3lv/IALvgp+4W8VeNhryfGhYEQC/PgDPMrnWUp+l60Ou5SJLsu+k4mhQ8A==}
