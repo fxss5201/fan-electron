@@ -31,8 +31,10 @@ function checkUpdate(win: BrowserWindow){
     //     app.quit()
     //   }
     // })
-    win.webContents.send('updater', {
-      version: res.version
+    win.webContents.on('did-finish-load', () => {
+      win.webContents.send('updater', {
+        version: res.version
+      })
     })
   })
 }

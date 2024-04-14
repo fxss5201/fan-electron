@@ -1,4 +1,5 @@
 import SettingPageZh from "./pages/SettingPage/zh-CN"
+import ApiDialogZh from "./pages/ApiDialog/zh-CN"
 
 export default {
   'Welcome to React': '欢迎来到React',
@@ -22,5 +23,6 @@ export default {
   'menu.setting': '设置',
 
   // 页面
-  ...SettingPageZh
+  ...SettingPageZh,
+  ...ApiDialogZh
 }

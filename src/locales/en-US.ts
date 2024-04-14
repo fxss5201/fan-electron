@@ -1,4 +1,5 @@
 import SettingPageEn from "./pages/SettingPage/en-US"
+import ApiDialogEn from "./pages/ApiDialog/en-US"
 
 export default {
   'Welcome to React': 'Welcome to React and react-i18next',
@@ -22,5 +23,6 @@ export default {
   'menu.setting': 'setting',
 
   // 页面
-  ...SettingPageEn
+  ...SettingPageEn,
+  ...ApiDialogEn
 }

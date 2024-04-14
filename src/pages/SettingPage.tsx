@@ -37,12 +37,12 @@ function SettingPage () {
         {
           itemVersionList.map(item => {
             return (
-              <p className="flex">
+              <div key={item} className="flex my-1">
                 <div className="w-32 text-right mr-2">
                   <FormattedMessage id='itemVersion' values={{ name: item }}></FormattedMessage>
                 </div>
                 <div>{versionsMap[item]}</div>
-              </p>
+              </div>
             )
           })
         }
