@@ -1,5 +1,5 @@
 import { Button, Flex } from 'antd'
-import { showOpenDialog } from '@/handles/dialog' 
+import { showOpenDialog, showSaveDialog } from '@/handles/dialog' 
 import { useState } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
@@ -30,6 +30,17 @@ function DialogOpenFilePage () {
       setFilePathDirectory(filePaths[0])
     }
   }
+
+  const [fileSavePath, setFileSavePath] = useState('')
+  const showSaveDialogFn = async () => {
+    const { canceled, filePath } = await showSaveDialog({
+      title: intl.formatMessage({id: 'Choose File'}),
+      buttonLabel: intl.formatMessage({id: 'button.okText'})
+    })
+    if (!canceled) {
+      setFileSavePath(filePath as string)
+    }
+  }
   
   return (
     <>
@@ -47,6 +58,18 @@ function DialogOpenFilePage () {
               <FormattedMessage id='Choose Folder'></FormattedMessage>
             </Button>
             <div className="leading-8"><FormattedMessage id='File address'></FormattedMessage>{filePathDirectory}</div>
+          </Flex>
+        </div>
+      </div>
+
+      <div className="mb-2">
+        <div className="text-xl pb-2 border-b border-slate-300">showSaveDialog</div>
+        <div className="pt-2">
+          <Flex gap="small" wrap="wrap">
+            <Button type="primary" onClick={showSaveDialogFn}>
+              <FormattedMessage id='save File'></FormattedMessage>
+            </Button>
+            <div className="leading-8"><FormattedMessage id='File address'></FormattedMessage>{fileSavePath}</div>
           </Flex>
         </div>
       </div>

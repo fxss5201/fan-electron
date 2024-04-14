@@ -32,9 +32,9 @@ function createWindow() {
   })
   // win.webContents.openDevTools();
 
-  // if (!isDev) {
-  //   Menu.setApplicationMenu(null)
-  // }
+  if (!isDev) {
+    Menu.setApplicationMenu(null)
+  }
 
   // Test active push message to Renderer-process.
   win.webContents.on('did-finish-load', () => {
