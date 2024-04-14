@@ -30,11 +30,11 @@ function createWindow() {
       preload: path.join(__dirname, 'preload.js'),
     },
   })
-  win.webContents.openDevTools();
+  // win.webContents.openDevTools();
 
-  if (!isDev) {
-    Menu.setApplicationMenu(null)
-  }
+  // if (!isDev) {
+  //   Menu.setApplicationMenu(null)
+  // }
 
   // Test active push message to Renderer-process.
   win.webContents.on('did-finish-load', () => {
