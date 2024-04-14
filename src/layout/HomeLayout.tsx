@@ -54,7 +54,7 @@ const HomeLayout = () => {
         className="min-h-screen"
         locale={locale}
         formatMessage={(message) => intl.formatMessage(message)}
-        title={config.title}
+        title={intl.formatMessage({id: config.title})}
         logo={config.logo}
         siderWidth={216}
         route={routers}

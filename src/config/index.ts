@@ -2,7 +2,7 @@ import type { Config } from '@/types/config'
 import logo from '@/assets/logo.png'
 
 const config: Config = {
-  title: '泛应用',
+  title: 'fanTitle',
   logo: logo,
 
   locale: 'zh-CN', // 设置默认语言，可选值 zh-CN/en-US

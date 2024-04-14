@@ -54,7 +54,7 @@ function createWindow() {
 }
 
 app.on('ready', function()  {
-  checkUpdate()
+  checkUpdate(win as BrowserWindow)
 });
 
 // Quit when all windows are closed, except on macOS. There, it's common

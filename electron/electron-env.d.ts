@@ -25,8 +25,9 @@ declare namespace NodeJS {
 interface Window {
   ipcRenderer: import('electron').IpcRenderer
   versions: {
-    node: () => string
-    chrome: () => string
-    electron: () => string
+    app: string
+    node: string
+    chrome: string
+    electron: string
   }
 }

@@ -1,3 +1,5 @@
+import SettingPageZh from "./pages/SettingPage/zh-CN"
+
 export default {
   'Welcome to React': '欢迎来到React',
   '404subTitle': '抱歉，您访问的页面不存在。',
@@ -6,10 +8,13 @@ export default {
   'Back Home': '返回首页',
   'Loading': '加载中 ...',
 
-  'changeLanguage': '选择语言',
+  'fanTitle': '泛应用',
   
   // 菜单
   'menu.Home': '首页',
   'menu.dialog': 'dialog',
-  'menu.setting': '设置'
+  'menu.setting': '设置',
+
+  // 页面
+  ...SettingPageZh
 }

@@ -1,3 +1,5 @@
+import SettingPageEn from "./pages/SettingPage/en-US"
+
 export default {
   'Welcome to React': 'Welcome to React and react-i18next',
   '404subTitle': 'Sorry, the page you visited does not exist.',
@@ -6,10 +8,13 @@ export default {
   'Back Home': 'Back Home',
   'Loading': 'Loading ...',
 
-  'changeLanguage': 'change language',
+  'fanTitle': 'fan App',
 
   // 菜单
   'menu.Home': 'Home',
   'menu.dialog': 'dialog',
-  'menu.setting': 'setting'
+  'menu.setting': 'setting',
+
+  // 页面
+  ...SettingPageEn
 }
