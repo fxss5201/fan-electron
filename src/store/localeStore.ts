@@ -5,6 +5,7 @@ import { PayloadAction } from '@reduxjs/toolkit/react';
 import { localeType } from '@/types';
 
 const defaultBrowserLang = getBrowserLang();
+console.log(defaultBrowserLang)
 
 let localeStorage = window.localStorage.getItem('locale') || '';
 if (!localeStorage && !config.locale) {
@@ -14,7 +15,7 @@ if (!localeStorage && !config.locale) {
 export const localeStoreSlice = createSlice({
   name: 'localeStore',
   initialState: {
-    value: localeStorage as localeType,
+    value: localeStorage || 'zh-CN' as localeType,
     list: [
       { value: 'zh-CN', label: '中文' },
       { value: 'en-US', label: 'English' },

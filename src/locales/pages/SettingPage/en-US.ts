@@ -3,9 +3,7 @@ const SettingPageEn = {
   'changeLanguage': 'change language',
   
   'version': 'version',
-  'itemVersion': '{name} version:',
-
-  'manual update': 'manual update'
+  'itemVersion': '{name} version:'
 }
 
 export default SettingPageEn

@@ -3,9 +3,7 @@ const SettingPageZh = {
   'changeLanguage': '选择语言',
 
   'version': '版本',
-  'itemVersion': '{name}版本：',
-
-  'manual update': '手动升级'
+  'itemVersion': '{name}版本：'
 }
 
 export default SettingPageZh

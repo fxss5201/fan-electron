@@ -13,9 +13,6 @@ export default {
 
   'button.okText': '确认',
   'button.cancelText': '取消',
-
-  'app updates': '应用更新',
-  'Discovered a new version, do you want to update it?': '发现新版本，是否更新？',
   
   // 菜单
   'menu.Home': '首页',

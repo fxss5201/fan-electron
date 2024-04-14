@@ -1,9 +1,7 @@
-import { Card, Space, Form, Select, Button } from 'antd'
+import { Card, Space, Form, Select } from 'antd'
 import { FormattedMessage, useIntl } from 'react-intl'
 import useLocalStore from '@/hooks/localStore'
 import { useState } from 'react'
-import { setDialogShow } from '@/store/versionStore.ts'
-import { useAppDispatch } from '@/hooks/storeHooks'
 
 type FieldType = {
   local?: string;
@@ -16,10 +14,6 @@ function SettingPage () {
   const { locale: localeDefault, localeList, localChange: handleLocalChange } = useLocalStore()
   const intl = useIntl()
   const [versionsMap] = useState(window.versions)
-  const dispatch = useAppDispatch()
-  const changeVersion = () => {
-    dispatch(setDialogShow(true))
-  }
 
   return (
     <Space direction="vertical" size={16} style={{ width: '100%' }}>
@@ -39,11 +33,7 @@ function SettingPage () {
           </Form.Item>
         </Form>
       </Card>
-      <Card size="small" title={intl.formatMessage({id: 'version'})} extra={
-        <Button onClick={changeVersion}>
-          <FormattedMessage id='manual update'></FormattedMessage>
-        </Button>
-      }>
+      <Card size="small" title={intl.formatMessage({id: 'version'})}>
         {
           itemVersionList.map(item => {
             return (

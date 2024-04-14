@@ -1,7 +1,7 @@
-import { app, dialog, BrowserWindow } from 'electron'
-import { UpdateDownloadedEvent, UpdateInfo, autoUpdater } from 'electron-updater'
+import { app, dialog } from 'electron'
+import { UpdateInfo, autoUpdater } from 'electron-updater'
 
-function checkUpdate(win: BrowserWindow){
+function checkUpdate(){
   //检测更新
   autoUpdater.checkForUpdates()
   
@@ -18,8 +18,7 @@ function checkUpdate(win: BrowserWindow){
   //默认会自动下载新版本，如果不想自动下载，设置autoUpdater.autoDownload = false
   
   //监听'update-downloaded'事件，新版本下载完成时触发
-  autoUpdater.on('update-downloaded', (res: UpdateDownloadedEvent) => {
-    // 统一采用前端页面提示
+  autoUpdater.on('update-downloaded', () => {
     dialog.showMessageBox({
       type: 'info',
       title: '应用更新',
@@ -30,11 +29,6 @@ function checkUpdate(win: BrowserWindow){
         autoUpdater.quitAndInstall()
         app.quit()
       }
-    })
-    win.webContents.on('did-finish-load', () => {
-      win.webContents.send('updater', {
-        version: res.version
-      })
     })
   })
 }

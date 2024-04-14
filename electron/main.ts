@@ -71,8 +71,8 @@ app.on('activate', () => {
 })
 
 app.whenReady().then(() => {
+  checkUpdate()
   addIpcMainOnFn()
   addIpcMainHandleFn()
   createWindow()
-  checkUpdate(win as BrowserWindow)
 })
