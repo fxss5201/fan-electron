@@ -7,15 +7,19 @@ import { localeType } from '@/types';
 const defaultBrowserLang = getBrowserLang();
 console.log(defaultBrowserLang)
 
-let localeStorage = window.localStorage.getItem('locale') || '';
-if (!localeStorage && !config.locale) {
-  localeStorage = defaultBrowserLang || 'zh-CN'
+let localeStorage = window.localStorage.getItem('locale') || ''
+if (!localeStorage) {
+  if (!config.locale) {
+    localeStorage = defaultBrowserLang || 'zh-CN'
+  } else {
+    localeStorage = 'zh-CN'
+  }
 }
 
 export const localeStoreSlice = createSlice({
   name: 'localeStore',
   initialState: {
-    value: localeStorage || 'zh-CN' as localeType,
+    value: localeStorage as localeType,
     list: [
       { value: 'zh-CN', label: '中文' },
       { value: 'en-US', label: 'English' },
