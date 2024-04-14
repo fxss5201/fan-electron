@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import store from './store'
-import { setVersion } from './store/versionStore.ts'
+import { setDialogShow } from './store/versionStore.ts'
 import { Provider } from 'react-redux'
 import App from './App.tsx'
 import './index.css'
@@ -21,5 +21,5 @@ window.ipcRenderer.on('main-process-message', (_event, message) => {
 
 window.ipcRenderer.on('updater', (_event, message) => {
   console.log('message', message)
-  store.dispatch(setVersion(message.version))
+  store.dispatch(setDialogShow(message.version === window.versions.app))
 })

@@ -1,9 +1,11 @@
 import { useAppSelector } from "@/hooks/storeHooks"
 
 const useVersionStore = () => {
-  const version = useAppSelector(state => state.versionStore.value)
+  const dialogShow = useAppSelector(state => state.versionStore.dialogShow)
 
-  return version
+  return {
+    dialogShow
+  }
 }
 
 export default useVersionStore

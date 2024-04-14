@@ -5,13 +5,16 @@ import { ExclamationCircleOutlined } from '@ant-design/icons'
 import { useIntl } from 'react-intl'
 import { Modal } from 'antd'
 import useVersionStore from '@/hooks/useVersionStore'
-import { useEffect } from 'react';
-import { doUpdater } from '@/handles/updater';
+import { useEffect } from 'react'
+import { doUpdater } from '@/handles/updater'
+import { useAppDispatch } from '@/hooks/storeHooks'
+import { setDialogShow } from '@/store/versionStore.ts'
 
 const AllLayout = () => {
   const [modal, contextHolder] = Modal.useModal()
   const intl = useIntl()
-  const version = useVersionStore()
+  const dispatch = useAppDispatch()
+  const { dialogShow } = useVersionStore()
   
   useEffect(() => {
     const confirm = () => {
@@ -24,13 +27,16 @@ const AllLayout = () => {
         onOk() {
           doUpdater()
         },
+        onCancel() {
+          dispatch(setDialogShow(false))
+        }
       });
     }
 
-    if (version !== window.versions.app) {
+    if (dialogShow) {
       confirm()
     }
-  }, [version, modal, intl])
+  }, [dialogShow, modal, intl])
 
   return (
     <>

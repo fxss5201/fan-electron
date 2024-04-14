@@ -4,15 +4,15 @@ import { PayloadAction } from '@reduxjs/toolkit/react';
 export const versionStoreSlice = createSlice({
   name: 'userInfoStore',
   initialState: {
-    value: window.versions.app
+    dialogShow: false
   },
   reducers: {
-    setVersion: (state, action: PayloadAction<string>) => {
-      state.value = action.payload
+    setDialogShow: (state, action: PayloadAction<boolean>) => {
+      state.dialogShow = action.payload
     },
   },
 });
 
-export const { setVersion } = versionStoreSlice.actions;
+export const { setDialogShow } = versionStoreSlice.actions;
 
 export default versionStoreSlice.reducer;
