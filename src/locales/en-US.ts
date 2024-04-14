@@ -10,6 +10,12 @@ export default {
 
   'fanTitle': 'fan App',
 
+  'button.okText': 'ok',
+  'button.cancelText': 'cancel',
+
+  'app updates': 'app updates',
+  'Discovered a new version, do you want to update it?': 'Discovered a new version, do you want to update it?',
+
   // 菜单
   'menu.Home': 'Home',
   'menu.dialog': 'dialog',

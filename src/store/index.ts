@@ -1,11 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit'
 import localeStore from './localeStore'
 import userInfoStore from './userInfoStore'
+import versionStore from './versionStore'
 
 const store = configureStore({
   reducer: {
     localeStore,
-    userInfoStore
+    userInfoStore,
+    versionStore
   }
 })
 
