@@ -4,7 +4,6 @@ import checkUpdate from './autoUpdater'
 import addIpcMainOnFn from './ipcMain/on'
 import addIpcMainHandleFn from './ipcMain/handle'
 
-
 // The built directory structure
 //
 // ├─┬─┬ dist
