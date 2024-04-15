@@ -1,12 +1,12 @@
 import { Button, Flex } from 'antd'
-import { showOpenDialog, showSaveDialog } from '@/handles/dialog' 
+import { showOpenDialog, showSaveDialog, showMessageBox } from '@/handles/dialog' 
 import { useState } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
 function DialogOpenFilePage () {
   const intl = useIntl()
-  const [filePath, setFilePath] = useState('')
 
+  const [filePath, setFilePath] = useState('')
   const showOpenDialogFn = async () => {
     const { canceled, filePaths } = await showOpenDialog({
       title: intl.formatMessage({id: 'Choose File'}),
@@ -19,7 +19,6 @@ function DialogOpenFilePage () {
   }
 
   const [filePathDirectory, setFilePathDirectory] = useState('')
-
   const showOpenDialogDirectoryFn = async () => {
     const { canceled, filePaths } = await showOpenDialog({
       title: intl.formatMessage({id: 'Choose Folder'}),
@@ -40,6 +39,28 @@ function DialogOpenFilePage () {
     if (!canceled) {
       setFileSavePath(filePath as string)
     }
+  }
+
+  type messageBoxType = 'info' | 'error' | 'question' | 'warning'
+  const messageBoxTypes: messageBoxType[] = ['info', 'error', 'question', 'warning']
+  const showMessageBoxFn = async (type: messageBoxType) => {
+    const { response } = await showMessageBox({
+      title: 'messageBox title',
+      message: 'messageBox message',
+      type,
+      buttons: [intl.formatMessage({id: 'button.okText'}), intl.formatMessage({id: 'button.cancelText'})]
+    })
+    alert(`response: ${response}`)
+  }
+  const showMessageBoxCheckboxFn = async () => {
+    const { response, checkboxChecked } = await showMessageBox({
+      title: 'messageBox title',
+      message: 'messageBox message',
+      checkboxLabel: 'checkboxLabel',
+      checkboxChecked: false,
+      buttons: [intl.formatMessage({id: 'button.okText'}), intl.formatMessage({id: 'button.cancelText'})]
+    })
+    alert(`response: ${response}, checkboxChecked: ${checkboxChecked}`)
   }
   
   return (
@@ -71,6 +92,26 @@ function DialogOpenFilePage () {
             </Button>
             <div className="leading-8"><FormattedMessage id='File address'></FormattedMessage>{fileSavePath}</div>
           </Flex>
+        </div>
+      </div>
+
+      <div className="mb-2">
+        <div className="text-xl pb-2 border-b border-slate-300">showMessageBox</div>
+        <div className="pt-2">
+          <Flex gap="small" wrap="wrap">
+            {messageBoxTypes.map(item => {
+              return (
+                <Button key={item} type="primary" onClick={() => showMessageBoxFn(item)}>
+                  <FormattedMessage id='open messageBox' values={{name: item}}></FormattedMessage>
+                </Button>
+              )
+            })}
+          </Flex>
+          <div className="mt-2">
+            <Button type="primary" onClick={showMessageBoxCheckboxFn}>
+              <FormattedMessage id='open messageBox checkbox'></FormattedMessage>
+            </Button>
+          </div>
         </div>
       </div>
     </>
