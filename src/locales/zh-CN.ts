@@ -1,6 +1,3 @@
-import SettingPageZh from "./pages/SettingPage/zh-CN"
-import ApiDialogZh from "./pages/ApiDialog/zh-CN"
-
 export default {
   'Welcome to React': '欢迎来到React',
   '404subTitle': '抱歉，您访问的页面不存在。',
@@ -18,8 +15,4 @@ export default {
   'menu.Home': '首页',
   'menu.dialog': 'dialog',
   'menu.setting': '设置',
-
-  // 页面
-  ...SettingPageZh,
-  ...ApiDialogZh
 }

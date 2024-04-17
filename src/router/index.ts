@@ -8,7 +8,6 @@ const OutletPage = lazy(() => import('@/pages/OutletPage'))
 
 const ErrorPage = lazy(() => import('@/error-page'))
 const HomePage = lazy(() => import('@/pages/HomePage'))
-const SettingPage = lazy(() => import('@/pages/SettingPage'))
 const ApiDialog = lazy(() => import('@/pages/api/ApiDialog'))
 
 export const routers: FanRouteObject = {
@@ -45,14 +44,14 @@ export const routers: FanRouteObject = {
           Component: ApiDialog,
         }
       ],
-    },
-    {
-      path: '/setting',
-      name: '设置',
-      locale: 'menu.setting',
-      Component: SettingPage,
-      hideInMenu: true,
     }
+    // {
+    //   path: '/setting',
+    //   name: '设置',
+    //   locale: 'menu.setting',
+    //   Component: SettingPage,
+    //   hideInMenu: true,
+    // }
   ]
 }
 

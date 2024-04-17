@@ -1,20 +1,19 @@
 import { Outlet, useNavigate, useLocation } from 'react-router-dom';
 import {
   GithubFilled,
-  // LogoutOutlined,
   SettingFilled,
 } from '@ant-design/icons'
 import { PageContainer, ProLayout } from '@ant-design/pro-components'
 import { Suspense, useState } from 'react'
 import { routers } from '@/router/index'
-// import { Dropdown } from 'antd'
-import { Spin, Tooltip } from "antd"
+import { Spin, Tooltip, Drawer } from "antd"
 import { homepage } from './../../package.json'
 import config from '@/config/index'
 import { FormattedMessage, useIntl } from 'react-intl'
 import useLocalStore from '@/hooks/localStore'
 import type { ProSettings } from '@ant-design/pro-components'
 import { openExternal } from '@/handles/shell'
+import SettingPage from '@/pages/SettingPage'
 
 const HomeLayout = () => {
   const navigate = useNavigate()
@@ -36,12 +35,20 @@ const HomeLayout = () => {
     setCollapsed(val)
   }
 
-  const settingClickFn = () => {
-    navigate('/setting')
-  }
+  // const settingClickFn = () => {
+  //   navigate('/setting')
+  // }
 
   const githubClickFn = () => {
     openExternal(homepage)
+  }
+
+  const [drawerOpen, setDrawerOpen] = useState(false)
+  const showDrawer = () => {
+    setDrawerOpen(true)
+  }
+  const onDrawerClose = () => {
+    setDrawerOpen(false)
   }
 
   return (
@@ -68,7 +75,7 @@ const HomeLayout = () => {
         actionsRender={() => {
           return [
             <Tooltip title={<FormattedMessage id="menu.setting"></FormattedMessage>} placement='bottom'>
-              <SettingFilled key="SettingFilled" onClick={settingClickFn} />
+              <SettingFilled key="SettingFilled" onClick={showDrawer} />
             </Tooltip>,
             <Tooltip title="Github" placement='bottom'>
               <GithubFilled key="GithubFilled" onClick={githubClickFn} />
@@ -96,6 +103,9 @@ const HomeLayout = () => {
           </Suspense>
         </PageContainer>
       </ProLayout>
+      <Drawer title={intl.formatMessage({id: 'menu.setting'})} onClose={onDrawerClose} open={drawerOpen} width="50%">
+        <SettingPage></SettingPage>
+      </Drawer>
     </div>
   );
 };

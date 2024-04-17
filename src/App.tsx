@@ -8,8 +8,7 @@ import { ConfigProvider } from 'antd'
 import dayjs from 'dayjs'
 import zh_CN from 'antd/locale/zh_CN'
 import en_GB from 'antd/locale/en_GB'
-import zhCN from '@/locales/zh-CN'
-import enUs from '@/locales/en-US'
+import localeMessage from '@/locales/index'
 import 'dayjs/locale/zh-cn'
 import 'dayjs/locale/en'
 import './App.css'
@@ -17,10 +16,6 @@ import './App.css'
 const antLocaleObj = {
   'zh-CN': zh_CN,
   'en-US': en_GB
-}
-const localeMessage = {
-  'zh-CN': zhCN,
-  'en-US': enUs
 }
 
 function App() {

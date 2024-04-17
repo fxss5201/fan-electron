@@ -23,7 +23,8 @@ function checkUpdate(){
       type: 'info',
       title: '应用更新',
       message: '发现新版本，是否更新？',
-      buttons: ['是', '否']
+      // buttons: ['是', '否']
+      buttons: ['ok', 'cancel']
     }).then((buttonIndex) => {
       if(buttonIndex.response == 0) {  //选择是，则退出程序，安装新版本
         autoUpdater.quitAndInstall()

@@ -20,8 +20,7 @@ function SettingPage () {
       <Card size="small" title={intl.formatMessage({id: 'language'})}>
         <Form
           name="basic"
-          labelCol={{ span: 4 }}
-          wrapperCol={{ span: 4 }}
+          layout="vertical"
           autoComplete="off"
           initialValues={{local: localeDefault}}
         >

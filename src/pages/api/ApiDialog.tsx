@@ -1,5 +1,5 @@
 import { Button, Flex } from 'antd'
-import { showOpenDialog, showSaveDialog, showMessageBox } from '@/handles/dialog' 
+import { showOpenDialog, showSaveDialog, showMessageBox, showErrorBox } from '@/handles/dialog' 
 import { useState } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
@@ -45,22 +45,28 @@ function DialogOpenFilePage () {
   const messageBoxTypes: messageBoxType[] = ['info', 'error', 'question', 'warning']
   const showMessageBoxFn = async (type: messageBoxType) => {
     const { response } = await showMessageBox({
-      title: 'messageBox title',
-      message: 'messageBox message',
+      title: intl.formatMessage({id: 'messageBox title'}),
+      message: intl.formatMessage({id: 'messageBox message'}),
       type,
-      buttons: [intl.formatMessage({id: 'button.okText'}), intl.formatMessage({id: 'button.cancelText'})]
+      // buttons: [intl.formatMessage({id: 'button.okText'}), intl.formatMessage({id: 'button.cancelText'})]
+      buttons: ['ok', 'cancel']
     })
     alert(`response: ${response}`)
   }
   const showMessageBoxCheckboxFn = async () => {
     const { response, checkboxChecked } = await showMessageBox({
-      title: 'messageBox title',
-      message: 'messageBox message',
+      title: intl.formatMessage({id: 'messageBox title'}),
+      message: intl.formatMessage({id: 'messageBox message'}),
       checkboxLabel: 'checkboxLabel',
       checkboxChecked: false,
-      buttons: [intl.formatMessage({id: 'button.okText'}), intl.formatMessage({id: 'button.cancelText'})]
+      // buttons: [intl.formatMessage({id: 'button.okText'}), intl.formatMessage({id: 'button.cancelText'})]
+      buttons: ['ok', 'cancel']
     })
     alert(`response: ${response}, checkboxChecked: ${checkboxChecked}`)
+  }
+
+  const showErrorBoxFn = async () => {
+    await showErrorBox(intl.formatMessage({id: 'ErrorBox title'}), intl.formatMessage({id: 'ErrorBox content'}))
   }
   
   return (
@@ -112,6 +118,15 @@ function DialogOpenFilePage () {
               <FormattedMessage id='open messageBox checkbox'></FormattedMessage>
             </Button>
           </div>
+        </div>
+      </div>
+
+      <div className="mb-2">
+        <div className="text-xl pb-2 border-b border-slate-300">showErrorBox</div>
+        <div className="pt-2">
+          <Button type="primary" onClick={showErrorBoxFn}>
+            <FormattedMessage id='open showErrorBox'></FormattedMessage>
+          </Button>
         </div>
       </div>
     </>

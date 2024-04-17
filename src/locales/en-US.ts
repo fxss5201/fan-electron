@@ -1,6 +1,3 @@
-import SettingPageEn from "./pages/SettingPage/en-US"
-import ApiDialogEn from "./pages/ApiDialog/en-US"
-
 export default {
   'Welcome to React': 'Welcome to React and react-i18next',
   '404subTitle': 'Sorry, the page you visited does not exist.',
@@ -18,8 +15,4 @@ export default {
   'menu.Home': 'Home',
   'menu.dialog': 'dialog',
   'menu.setting': 'setting',
-
-  // 页面
-  ...SettingPageEn,
-  ...ApiDialogEn
 }
